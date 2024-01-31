@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<h2>Подробная информация о читателе</h2>
+<body>
+<p th:text="${'Имя: ' + user.getName()}">VALUE</p>
+<p th:text="${'Фамилия: ' + user.getSurname()}">VALUE</p>
+<p th:text="${'Возраст: ' + user.getAge()}">VALUE</p>
+<div>
+  <a th:href="@{/api/v1/users}"><input type="submit" value="Назад"></a>
+</div>
+</body>
+</html>

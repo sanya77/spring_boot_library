@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<h2>Добро пожаловать в библиотеку </h2>
+<table th:border="1" th:bgcolor="PowderBlue">
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--    <tr th:if="${books.isEmpty}">-->
+    <!--        <td colspan="2">Книг нет</td>-->
+    <!--    </tr>-->
+    <tr th:each="user : ${users}">
+        <td><span th:text="${user.getName()}"></span></td>
+        <td><span th:text="${user.getSurname()}"></span></td>
+
+        <td>
+            <div><a th:href="@{/api/v1/users/update/{id}(id=${user.getId()})}"><input type="submit"
+                                                                                     value="Редактировать"></a></div>
+        </td>
+        <td>
+            <div> <a th:href="@{/api/v1/users/{id}(id=${user.getId()})}"><input type="submit" value="Информация"></a></div>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+<br><br>
+<div>
+    <a th:href="@{/api/v1/users/new}"><input type="submit" value="Добавить нового читателя"></a>
+</div>
+</body>
+</html>

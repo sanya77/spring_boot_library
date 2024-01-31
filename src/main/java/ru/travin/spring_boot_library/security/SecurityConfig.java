@@ -30,14 +30,14 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(admin, user, sanya55);
     }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/v1/users").permitAll()
-                        .requestMatchers("/api/v1/users/**").authenticated())
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
-                .build();
-    }
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        return http.csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/v1/users").permitAll()
+//                        .requestMatchers("/api/v1/users/**").authenticated())
+//                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+//                .build();
+//    }
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

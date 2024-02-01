@@ -30,6 +30,8 @@ public class UserController {
     @GetMapping("/users/{id}")
     public String findByIdUser(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", databaseService.findByIdUser(id));
+        model.addAttribute("books", databaseService.addBookForPerson(id));
+
         return "/user/show-user";
     }
 
@@ -45,6 +47,7 @@ public class UserController {
         databaseService.saveUser(user);
         return "redirect:/api/v1/users";
     }
+
     //получение формы для редактирования пользователя
     @GetMapping("/users/update/{id}")
     public String updateUserForm(@PathVariable("id") Long id, Model model) {

@@ -2,6 +2,9 @@ package ru.travin.spring_boot_library.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -12,6 +15,6 @@ public class UserEntity {
     private String name;
     private String surname;
     private int age;
-//    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "user")
-//    private List<BookEntity> book;
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "user")
+    private List<BookEntity> book;
 }

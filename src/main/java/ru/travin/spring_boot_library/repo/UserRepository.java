@@ -13,5 +13,4 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity findByIdUser(Long id);
 
 
-
 }

@@ -5,6 +5,24 @@
     <title>Create</title>
 </head>
 <body>
+<h2>Добавление новой книги в нашу библиотеку</h2>
+<form th:method="POST" th:action="@{/api/v2/books/create}" th:object="${book}">
+    <label for="nameBook">Введите название книги: </label>
+    <input type="text" th:field="*{nameBook}" id="nameBook"/>
+    <br><br>
+    <label for="author">Введите фамилию автора: </label>
+    <input type="text" th:field="*{author}" id="author"/>
+    <br><br>
+    <label for="releaseBook">Введите дату издания книги: </label>
+    <input type="text" th:field="*{releaseBook}" id="releaseBook"/>
+    <br><br>
 
+    <input type="submit" value="Создать">
+    <br><br>
+
+</form>
+<div>
+    <a th:href="@{/api/v2/books}"><input type="submit" value="Назад"></a>
+</div>
 </body>
 </html>

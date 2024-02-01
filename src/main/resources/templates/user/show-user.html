@@ -4,13 +4,31 @@
     <meta charset="UTF-8">
     <title>User</title>
 </head>
-<h2>Подробная информация о читателе</h2>
 <body>
+<h2>Подробная информация о читателе</h2>
+<hr>
+<div th:if="${books.isEmpty()}">
+    <p>
+        <tr th:text="${user.getName()}"/>
+        пока что не взял ни одной книги
+    </p>
+    </hr>
+</div>
+
+<div th:if="${!books.isEmpty()}">
+    <b>Книги:</b>
+    <br>
+    <table th:each="book : ${books}">
+        <tr th:text="${book.getNameBook() + ', ' + book.getAuthor + ', ' + book.getReleaseBook()}"></tr>
+    </table>
+    <hr>
+</div>
+
 <p th:text="${'Имя: ' + user.getName()}">VALUE</p>
 <p th:text="${'Фамилия: ' + user.getSurname()}">VALUE</p>
 <p th:text="${'Возраст: ' + user.getAge()}">VALUE</p>
 <div>
-  <a th:href="@{/api/v1/users}"><input type="submit" value="Назад"></a>
+    <a th:href="@{/api/v1/users}"><input type="submit" value="Назад"></a>
 </div>
 </body>
 </html>

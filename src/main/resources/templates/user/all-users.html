@@ -12,21 +12,20 @@
         <th>Имя</th>
         <th>Фамилия</th>
     </tr>
+
     </thead>
     <tbody>
-    <!--    <tr th:if="${books.isEmpty}">-->
-    <!--        <td colspan="2">Книг нет</td>-->
-    <!--    </tr>-->
     <tr th:each="user : ${users}">
         <td><span th:text="${user.getName()}"></span></td>
         <td><span th:text="${user.getSurname()}"></span></td>
 
         <td>
             <div><a th:href="@{/api/v1/users/update/{id}(id=${user.getId()})}"><input type="submit"
-                                                                                     value="Редактировать"></a></div>
+                                                                                      value="Редактировать"></a></div>
         </td>
         <td>
-            <div> <a th:href="@{/api/v1/users/{id}(id=${user.getId()})}"><input type="submit" value="Информация"></a></div>
+            <div><a th:href="@{/api/v1/users/{id}(id=${user.getId()})}"><input type="submit" value="Информация"></a>
+            </div>
         </td>
     </tr>
 
@@ -36,6 +35,8 @@
 <br><br>
 <div>
     <a th:href="@{/api/v1/users/new}"><input type="submit" value="Добавить нового читателя"></a>
+    <br><br>
+    <a th:href="@{/api/v2/books}"><input type="submit" value="Справочник книг"></a>
 </div>
 </body>
 </html>

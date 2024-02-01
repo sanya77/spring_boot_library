@@ -1,22 +1,26 @@
 package ru.travin.spring_boot_library.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.travin.spring_boot_library.model.BookEntity;
 import ru.travin.spring_boot_library.model.UserEntity;
 import ru.travin.spring_boot_library.repo.BookRepository;
 import ru.travin.spring_boot_library.repo.UserRepository;
 
-import java.awt.print.Book;
 import java.util.List;
-@Service
-public class DatabaseServiceImpl implements DatabaseService{
 
+@Service
+@Transactional
+public class DatabaseServiceImpl implements DatabaseService {
+
+    private final EntityManager entityManager;
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
 
-    public DatabaseServiceImpl(UserRepository userRepository, BookRepository bookRepository) {
+    public DatabaseServiceImpl(EntityManager entityManager, UserRepository userRepository, BookRepository bookRepository) {
+        this.entityManager = entityManager;
         this.userRepository = userRepository;
         this.bookRepository = bookRepository;
     }
@@ -49,6 +53,12 @@ public class DatabaseServiceImpl implements DatabaseService{
     }
 
     @Override
+    public List<BookEntity> addBookForPerson(Long id) {
+        UserEntity user = entityManager.getReference(UserEntity.class, id);
+        return user.getBook();
+    }
+
+    @Override
     public List<BookEntity> findAllBook() {
         List<BookEntity> books = bookRepository.findAll();
         return books;
@@ -61,16 +71,39 @@ public class DatabaseServiceImpl implements DatabaseService{
 
     @Override
     public void saveBook(BookEntity book) {
-    bookRepository.save(book);
+        bookRepository.save(book);
     }
 
     @Override
     public void update(Long id, BookEntity book) {
-    bookRepository.save(book);
+        bookRepository.save(book);
     }
 
     @Override
     public void deleteBook(Long id) {
-    bookRepository.deleteById(id);
+        bookRepository.deleteById(id);
+    }
+
+
+    //
+    public UserEntity getBookUser(Long id) {
+        BookEntity book = entityManager.getReference(BookEntity.class, id);
+        return book.getUser();
+    }
+
+    // освободить книгу
+    public void deleteUserForBook(Long id) {
+        Query update = entityManager.createQuery("UPDATE BookEntity b SET b.user.id = ?1 where b.id = ?2");
+        update.setParameter(1, null);
+        update.setParameter(2, id);
+        update.executeUpdate();
+    }
+
+    // назначить книгу
+    public void addBookPerson(Long id, UserEntity user) {
+        Query update = entityManager.createQuery("UPDATE BookEntity b SET b.user.id = ?1 where b.id = ?2");
+        update.setParameter(1, user.getId()); // в первый параметр назначаем id пользователя
+        update.setParameter(2, id); // во второй параметр назначаем id книги
+        update.executeUpdate();
     }
 }

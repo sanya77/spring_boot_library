@@ -5,6 +5,48 @@
     <title>Book</title>
 </head>
 <body>
+<h3>Информация о книге и читателе</h3>
+<p th:text="${'Книга: ' + book.getNameBook() + ', ' + book.getAuthor() + ', ' + book.getReleaseBook()}"></p>
+
+<div th:if="${bookUser}">
+    <span>Cейчас у: </span> <span
+        th:text="${bookUser.getName() + ' ' + bookUser.getSurname()}">User name</span>
+    <form th:method="PATCH" th:action="@{/api/v2/books/deleteUserForBook/{id}(id=${book.getId()})}">
+        <br>
+        <input type="submit" value="Освободить книгу">
+    </form>
+
+</div>
+
+<div th:if="${Users}">
+    <span>Эта книга свободна. Кому ее назначить?</span>
+    <br><br>
+    <form th:method="PATCH" th:action="@{/api/v2/books/addBook/{id}(id=${book.getId()})}">
+        <label for="Users">Выберите человека</label>
+        <select th:object="${user}" th:field="*{id}" id="Users">
+            <option th:each="user : ${Users}" th:value="${user.getId()}" th:text="${user.getName()}"></option>
+        </select>
+        <br><br>
+        <input type="submit" value="Назначить книгу"/>
+    </form>
+</div>
+<hr>
+
+<h2>Подробная информация о книге!</h2>
+<p th:text="${'Название книги: ' + book.getNameBook()}">VALUE</p>
+<p th:text="${'Автор книги: ' + book.getAuthor()}">VALUE</p>
+<p th:text="${'Год издания книги: ' + book.getReleaseBook()}">VALUE</p>
+
+<br>
+<a th:href="@{/api/v2/books/{id}/(id=${book.getId()})}"><input type="submit" value="Редактировать"></a>
+<br><br>
+<form th:method="DELETE" th:action="@{/api/v2/books/{id}(id=${book.getId()})}">
+    <input type="submit" value="Удалить"/>
+</form>
+<br>
+<div>
+    <a th:href="@{/api/v2/books}"><input type="submit" value="Назад"></a>
+</div>
 
 </body>
 </html>

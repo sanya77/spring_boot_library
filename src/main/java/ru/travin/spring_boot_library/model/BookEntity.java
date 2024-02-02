@@ -13,7 +13,7 @@ public class BookEntity {
     private String nameBook;
     private String author;
     private int releaseBook;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;
 }

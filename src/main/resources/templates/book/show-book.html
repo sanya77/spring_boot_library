@@ -38,7 +38,7 @@
 <p th:text="${'Год издания книги: ' + book.getReleaseBook()}">VALUE</p>
 
 <br>
-<a th:href="@{/api/v2/books/{id}/(id=${book.getId()})}"><input type="submit" value="Редактировать"></a>
+<a th:href="@{/api/v2/books/updates/{id}(id=${book.getId()})}"><input type="submit" value="Редактировать"></a>
 <br><br>
 <form th:method="DELETE" th:action="@{/api/v2/books/{id}(id=${book.getId()})}">
     <input type="submit" value="Удалить"/>
